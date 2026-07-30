@@ -1,21 +1,23 @@
 import json
+import pickle
 
 import murmurhash
 import torch
 
 
 class BatchProcessor:
-    def __init__(self, semantic_ids=None, sem_id_len=None, user_ids_count=None):
+    def __init__(self, semantic_ids=None, sem_id_len=None, user_ids_count=None, user_embeddings=None):
         self._mapping = semantic_ids
         self._semantic_length = sem_id_len
         self._user_ids_count = user_ids_count
+        self._user_embeddings = user_embeddings  # dict {user_id (int): embedding (list[float])}
 
         if semantic_ids is not None:
             self._prefixes = ['item', 'labels']
             self._mapping_tensor = torch.tensor(semantic_ids, dtype=torch.long)
 
     @classmethod
-    def create(cls, mapping_path, sem_id_len, user_ids_count):
+    def create(cls, mapping_path, sem_id_len, user_ids_count, user_embeddings_path=None):
         with open(mapping_path, 'r') as f:
             mapping = json.load(f)
 
@@ -24,7 +26,14 @@ class BatchProcessor:
             assert len(mapping[str(i)]) == sem_id_len, 'All semantic ids must have the same length'
             semantic_ids.append(mapping[str(i)])
 
-        return cls(semantic_ids=semantic_ids, sem_id_len=sem_id_len, user_ids_count=user_ids_count)
+        user_embeddings = None
+        if user_embeddings_path is not None:
+            with open(user_embeddings_path, 'rb') as f:
+                data = pickle.load(f)
+            user_embeddings = {uid: emb for uid, emb in zip(data['item_id'], data['embedding'])}
+
+        return cls(semantic_ids=semantic_ids, sem_id_len=sem_id_len, user_ids_count=user_ids_count,
+                   user_embeddings=user_embeddings)
 
     def __call__(self, batch):
         processed_batch = {}
@@ -54,7 +63,12 @@ class BatchProcessor:
                     processed_batch[f'semantic_{prefix}.ids'] = self._mapping_tensor[ids].flatten()
                     processed_batch[f'semantic_{prefix}.length'] = lengths * self._semantic_length
 
-        if self._user_ids_count is not None:
+        if self._user_embeddings is not None:
+            processed_batch['user_attr.embedding'] = torch.tensor(
+                [self._user_embeddings[uid] for uid in processed_batch['user.ids'].tolist()],
+                dtype=torch.float32
+            )
+        elif self._user_ids_count is not None:
             processed_batch['hashed_user.ids'] = torch.tensor(
                 list(map(lambda x: murmurhash.hash(str(x)) % self._user_ids_count,
                          processed_batch['user.ids'].tolist())),

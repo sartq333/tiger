@@ -26,7 +26,9 @@ class Trainer:
             epochs_threshold=40,
             valid_step=256,
             eval_step=256,
-            checkpoint_dir='../checkpoints'
+            checkpoint_dir='../checkpoints',
+            checkpoint_step=512,
+            resume=True
     ):
         self._experiment_name = experiment_name
         self._train_dataloader = train_dataloader
@@ -41,6 +43,8 @@ class Trainer:
         self._epochs_threshold = epochs_threshold
         self._ranking_metrics = ranking_metrics
         self._checkpoint_dir = checkpoint_dir
+        self._checkpoint_step = checkpoint_step
+        self._resume = resume
         os.makedirs(self._checkpoint_dir, exist_ok=True)
 
         tensorboard_writer = TensorboardWriter(self._experiment_name)
@@ -69,12 +73,57 @@ class Trainer:
             labels_prefix='labels'
         )
 
+    @property
+    def _best_path(self):
+        return f'{self._checkpoint_dir}/{self._experiment_name}_best.pth'
+
+    @property
+    def _latest_path(self):
+        return f'{self._checkpoint_dir}/{self._experiment_name}_latest.pth'
+
+    def _save_rolling(self, step_num, epoch_num, best_checkpoint, best_epoch, current_metric):
+        """Atomically overwrite the single rolling snapshot (constant disk usage:
+        the temp file is renamed over the old one, so the previous snapshot is gone)."""
+        state = {
+            'model': self._model.state_dict(),
+            'optimizer': self._optimizer.state_dict(),
+            'step_num': step_num,
+            'epoch_num': epoch_num,
+            'best_checkpoint': best_checkpoint,
+            'best_epoch': best_epoch,
+            'current_metric': float(current_metric),  # plain float: keep snapshot weights_only-safe
+        }
+        tmp = self._latest_path + '.tmp'
+        torch.save(state, tmp)
+        os.replace(tmp, self._latest_path)  # atomic; deletes the previous snapshot
+        LOGGER.debug(f'Rolling checkpoint saved @ step {step_num} -> {self._latest_path}')
+
+    def _try_resume(self):
+        """Return (step_num, epoch_num, current_metric, best_epoch, best_checkpoint)
+        restored from the rolling snapshot, or None for a fresh start."""
+        if not (self._resume and os.path.exists(self._latest_path)):
+            return None
+        # weights_only=False: this is our own trusted snapshot and it bundles
+        # non-tensor bookkeeping (ints/floats), which the weights_only loader rejects.
+        state = torch.load(self._latest_path, map_location=DEVICE, weights_only=False)
+        self._model.load_state_dict(state['model'])
+        self._optimizer.load_state_dict(state['optimizer'])
+        LOGGER.debug(
+            f"Resuming from {self._latest_path}: step {state['step_num']}, epoch {state['epoch_num']}, "
+            f"best {self._best_metric}={state['current_metric']:.5f}")
+        return (state['step_num'], state['epoch_num'], state['current_metric'],
+                state['best_epoch'], state['best_checkpoint'])
+
     def train(self):
         step_num = 0
         epoch_num = 0
         current_metric = 0
         best_epoch = 0
         best_checkpoint = None
+
+        resumed = self._try_resume()
+        if resumed is not None:
+            step_num, epoch_num, current_metric, best_epoch, best_checkpoint = resumed
 
         LOGGER.debug('Start training...')
 
@@ -121,10 +170,17 @@ class Trainer:
                     best_checkpoint is None  # If no best checkpoint exists this one is taken
                     or self._best_metric in validation_metrics and current_metric <= validation_metrics[self._best_metric]  # or if metrics improved compared to previous one
                 ):
-                    print(step_num, validation_metrics[self._best_metric], current_metric, evaluation_metrics[self._best_metric])
+                    print(step_num, validation_metrics[self._best_metric], current_metric, evaluation_metrics.get(self._best_metric, float('nan')))
                     current_metric = validation_metrics[self._best_metric]
                     best_checkpoint = copy.deepcopy(self._model.state_dict())
                     best_epoch = epoch_num
+                    # Persist best-so-far to disk so it survives an interrupted run
+                    torch.save(best_checkpoint, self._best_path)
+                    LOGGER.debug(f'New best {self._best_metric}={current_metric:.5f} @ step {step_num} -> {self._best_path}')
+
+                # Rolling resumable snapshot at regular step intervals (single file, overwritten)
+                if self._checkpoint_step and step_num % self._checkpoint_step == 0:
+                    self._save_rolling(step_num, epoch_num, best_checkpoint, best_epoch, current_metric)
 
                 step_num += 1
 

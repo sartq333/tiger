@@ -1,6 +1,7 @@
 import json
 
 import torch
+import torch.nn as nn
 from transformers import T5ForConditionalGeneration, T5Config, LogitsProcessor
 
 from modeling.models import TorchModel
@@ -87,7 +88,8 @@ class TigerModel(TorchModel):
             activation='relu',
             dropout=0.1,
             initializer_range=0.02,
-            logits_processor=None
+            logits_processor=None,
+            user_attr_dim=None
     ):
         super().__init__()
         self._embedding_dim = embedding_dim
@@ -106,6 +108,7 @@ class TigerModel(TorchModel):
         self._sem_id_len = sem_id_len
         self.user_ids_count = user_ids_count
         self.logits_processor = logits_processor
+        self._user_attr_dim = user_attr_dim
 
         unified_vocab_size = codebook_size * self._sem_id_len + self.user_ids_count + 10  # 10 for utilities
         self.config = T5Config(
@@ -127,6 +130,8 @@ class TigerModel(TorchModel):
             tie_word_embeddings=False
         )
         self.model = T5ForConditionalGeneration(config=self.config)
+        if self._user_attr_dim is not None:
+            self.user_projection = nn.Linear(self._user_attr_dim, embedding_dim, bias=False)
         self._init_weights(initializer_range)
 
     def forward(self, inputs):
@@ -151,14 +156,25 @@ class TigerModel(TorchModel):
         )
 
         input_semantic_ids[~attention_mask] = self.config.pad_token_id
-        input_semantic_ids = torch.cat([
-            input_semantic_ids,
-            self._sem_id_len * self._codebook_size + inputs['hashed_user.ids'][:, None],
-        ], dim=-1)
         attention_mask = torch.cat([
             attention_mask,
             torch.ones(batch_size, 1, device=attention_mask.device, dtype=attention_mask.dtype)
         ], dim=-1)
+
+        # Build encoder inputs — attribute projection or hashed-ID token lookup
+        if 'user_attr.embedding' in inputs:
+            item_embeds = self.model.shared(input_semantic_ids)                          # (B, seq, D)
+            user_embed  = self.user_projection(                                          # (B, D)
+                inputs['user_attr.embedding'].to(item_embeds.dtype)
+            )
+            inputs_embeds = torch.cat([item_embeds, user_embed.unsqueeze(1)], dim=1)    # (B, seq+1, D)
+            encoder_kwargs = {'inputs_embeds': inputs_embeds}
+        else:
+            input_semantic_ids = torch.cat([
+                input_semantic_ids,
+                self._sem_id_len * self._codebook_size + inputs['hashed_user.ids'][:, None],
+            ], dim=-1)
+            encoder_kwargs = {'input_ids': input_semantic_ids}
 
         if self.training:
             positive_sample_events = inputs['semantic_labels.ids']  # (batch_size * sem_id_len)
@@ -191,7 +207,7 @@ class TigerModel(TorchModel):
             labels = target_semantic_ids[:, 1:].contiguous()
 
             model_output = self.model(
-                input_ids=input_semantic_ids,
+                **encoder_kwargs,
                 attention_mask=attention_mask,
                 decoder_input_ids=decoder_input_ids,
                 labels=labels
@@ -205,7 +221,7 @@ class TigerModel(TorchModel):
             )
 
             output = self.model.generate(
-                input_ids=input_semantic_ids,
+                **encoder_kwargs,
                 attention_mask=attention_mask,
                 num_beams=self._num_beams,
                 num_return_sequences=self._num_return_sequences,

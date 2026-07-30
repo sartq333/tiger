@@ -36,7 +36,8 @@ def main():
     num_codebooks = config['dataset']['num_codebooks']
     user_ids_count = config['model']['user_ids_count']
     batch_processor = BatchProcessor.create(
-        config['dataset']['index_json_path'], num_codebooks, user_ids_count
+        config['dataset']['index_json_path'], num_codebooks, user_ids_count,
+        user_embeddings_path=config['dataset'].get('user_embeddings_path')
     )
 
     train_dataloader = DataLoader(
@@ -86,7 +87,8 @@ def main():
             config['model']['codebook_size'],
             config['dataset']['index_json_path'],
             config['model']['num_beams']
-        )
+        ),
+        user_attr_dim=config['model'].get('user_attr_dim')
     ).to(utils.DEVICE)
 
     total_params = sum(p.numel() for p in model.parameters())
@@ -131,7 +133,9 @@ def main():
         best_metric='ndcg@20',
         epochs_threshold=config.get('early_stopping_threshold', 40),
         valid_step=256,
-        eval_step=256
+        eval_step=10_000_000,  # test-eval during training disabled; final eval runs after load(best)
+        checkpoint_step=config.get('checkpoint_step', 512),  # rolling resumable snapshot cadence
+        resume=config.get('resume', True)
     )
 
     best_checkpoint = trainer.train()
