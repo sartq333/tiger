@@ -3,6 +3,12 @@ from functools import partial
 import torch
 from torch.utils.data import DataLoader
 
+# Run from any directory: put the package dir (tiger/tiger) on the path and cd in.
+import os
+_PKG = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, _PKG)
+os.chdir(_PKG)
+
 from modeling import utils
 from modeling.dataloader import BatchProcessor
 from modeling.dataset import Dataset

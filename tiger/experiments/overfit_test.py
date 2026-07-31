@@ -6,6 +6,12 @@ from functools import partial
 import torch
 from torch.utils.data import DataLoader
 
+# Run from any directory: put the package dir (tiger/tiger) on the path and cd in.
+import os, sys
+_PKG = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, _PKG)
+os.chdir(_PKG)
+
 import modeling.utils as U
 U.DEVICE = torch.device('cpu')          # force CPU for this isolated test
 from modeling.dataloader import BatchProcessor

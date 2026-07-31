@@ -11,6 +11,14 @@ import numpy as np
 import pandas as pd
 import torch
 
+# Make the script runnable from any directory: add the package dir (tiger/tiger,
+# the parent of experiments/) to sys.path and cd into it so `import modeling` works
+# and ./configs, ../data, ../checkpoints resolve as they do from tiger/tiger.
+import os
+_PKG = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, _PKG)
+os.chdir(_PKG)
+
 # Parse args and pin the device BEFORE importing model modules: tiger.py binds
 # `from modeling.utils import DEVICE` at import time (logits processor tensors),
 # so utils.DEVICE must be set first or CPU/CUDA will mismatch during generate.

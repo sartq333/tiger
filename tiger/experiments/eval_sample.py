@@ -5,6 +5,12 @@ from functools import partial
 import numpy as np
 import torch
 
+# Run from any directory: put the package dir (tiger/tiger) on the path and cd in.
+import os, sys
+_PKG = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, _PKG)
+os.chdir(_PKG)
+
 _pre = argparse.ArgumentParser(add_help=False); _pre.add_argument('--device', default='cpu')
 _a, _ = _pre.parse_known_args()
 from modeling import utils
