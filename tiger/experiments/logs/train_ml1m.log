@@ -1,0 +1,885 @@
+[2026-07-31 01:14:30] [DEBUG]: Training config: 
+{
+  "experiment_name": "tiger_ml1m",
+  "dataset": {
+    "inter_json_path": "../data/ml-1m/inter.json",
+    "index_json_path": "../data/ml-1m/index_rqvae.json",
+    "user_embeddings_path": "../data/ml-1m/user_embeddings.pkl",
+    "num_codebooks": 4,
+    "max_sequence_length": 20,
+    "sampler_type": "tiger"
+  },
+  "dataloader": {
+    "train_batch_size": 256,
+    "validation_batch_size": 256
+  },
+  "model": {
+    "embedding_dim": 128,
+    "codebook_size": 256,
+    "num_positions": 20,
+    "user_ids_count": 2000,
+    "user_attr_dim": 4096,
+    "num_heads": 6,
+    "num_encoder_layers": 4,
+    "num_decoder_layers": 4,
+    "dim_feedforward": 1024,
+    "d_kv": 64,
+    "dropout": 0.1,
+    "activation": "relu",
+    "num_beams": 100,
+    "top_k": 20,
+    "layer_norm_eps": 1e-06,
+    "initializer_range": 0.02
+  },
+  "optimizer": {
+    "lr": 0.0003
+  },
+  "early_stopping_threshold": 40
+}
+[2026-07-31 01:14:30] [DEBUG]: Current DEVICE: cuda
+[2026-07-31 01:14:35] [INFO]: Train dataset size: 982089
+[2026-07-31 01:14:35] [INFO]: Validation dataset size: 6040
+[2026-07-31 01:14:35] [INFO]: Test dataset size: 6040
+[2026-07-31 01:14:35] [INFO]: Max item id: 3882
+[2026-07-31 01:14:36] [DEBUG]: Overall parameters: 5,372,288
+[2026-07-31 01:14:36] [DEBUG]: Trainable parameters: 5,372,288
+[2026-07-31 01:14:36] [DEBUG]: Everything is ready for training process!
+[2026-07-31 01:14:36] [DEBUG]: Start training...
+[2026-07-31 01:14:36] [DEBUG]: Start epoch 0
+[2026-07-31 01:14:37] [DEBUG]: Running validation on step 0...
+[2026-07-31 01:15:20] [DEBUG]: Running validation on step 0 is done!
+[2026-07-31 01:15:20] [DEBUG]: Running eval on step 0...
+[2026-07-31 01:16:02] [DEBUG]: Running eval on step 0 is done!
+0 0.0018356323809615824 0 0.002532954348732304
+[2026-07-31 01:16:02] [DEBUG]: New best ndcg@20=0.00184 @ step 0 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 01:16:02] [DEBUG]: Rolling checkpoint saved @ step 0 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 01:16:29] [DEBUG]: Running validation on step 256...
+[2026-07-31 01:17:12] [DEBUG]: Running validation on step 256 is done!
+256 0.010992749987651181 0.0018356323809615824 nan
+[2026-07-31 01:17:12] [DEBUG]: New best ndcg@20=0.01099 @ step 256 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 01:17:38] [DEBUG]: Running validation on step 512...
+[2026-07-31 01:18:21] [DEBUG]: Running validation on step 512 is done!
+512 0.018488615104891606 0.010992749987651181 nan
+[2026-07-31 01:18:21] [DEBUG]: New best ndcg@20=0.01849 @ step 512 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 01:18:21] [DEBUG]: Rolling checkpoint saved @ step 512 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 01:18:47] [DEBUG]: Running validation on step 768...
+[2026-07-31 01:19:30] [DEBUG]: Running validation on step 768 is done!
+768 0.020991903365842553 0.018488615104891606 nan
+[2026-07-31 01:19:30] [DEBUG]: New best ndcg@20=0.02099 @ step 768 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 01:19:57] [DEBUG]: Running validation on step 1024...
+[2026-07-31 01:20:39] [DEBUG]: Running validation on step 1024 is done!
+1024 0.022857917539331297 0.020991903365842553 nan
+[2026-07-31 01:20:40] [DEBUG]: New best ndcg@20=0.02286 @ step 1024 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 01:20:40] [DEBUG]: Rolling checkpoint saved @ step 1024 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 01:21:06] [DEBUG]: Running validation on step 1280...
+[2026-07-31 01:21:49] [DEBUG]: Running validation on step 1280 is done!
+[2026-07-31 01:22:15] [DEBUG]: Running validation on step 1536...
+[2026-07-31 01:22:58] [DEBUG]: Running validation on step 1536 is done!
+[2026-07-31 01:22:58] [DEBUG]: Rolling checkpoint saved @ step 1536 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 01:23:24] [DEBUG]: Running validation on step 1792...
+[2026-07-31 01:24:07] [DEBUG]: Running validation on step 1792 is done!
+1792 0.023294276078015763 0.022857917539331297 nan
+[2026-07-31 01:24:07] [DEBUG]: New best ndcg@20=0.02329 @ step 1792 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 01:24:34] [DEBUG]: Running validation on step 2048...
+[2026-07-31 01:25:17] [DEBUG]: Running validation on step 2048 is done!
+2048 0.025039997410695285 0.023294276078015763 nan
+[2026-07-31 01:25:17] [DEBUG]: New best ndcg@20=0.02504 @ step 2048 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 01:25:17] [DEBUG]: Rolling checkpoint saved @ step 2048 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 01:25:43] [DEBUG]: Running validation on step 2304...
+[2026-07-31 01:26:26] [DEBUG]: Running validation on step 2304 is done!
+2304 0.0310391391596652 0.025039997410695285 nan
+[2026-07-31 01:26:26] [DEBUG]: New best ndcg@20=0.03104 @ step 2304 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 01:26:52] [DEBUG]: Running validation on step 2560...
+[2026-07-31 01:27:35] [DEBUG]: Running validation on step 2560 is done!
+[2026-07-31 01:27:35] [DEBUG]: Rolling checkpoint saved @ step 2560 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 01:28:01] [DEBUG]: Running validation on step 2816...
+[2026-07-31 01:28:44] [DEBUG]: Running validation on step 2816 is done!
+2816 0.033352473647093143 0.0310391391596652 nan
+[2026-07-31 01:28:44] [DEBUG]: New best ndcg@20=0.03335 @ step 2816 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 01:29:10] [DEBUG]: Running validation on step 3072...
+[2026-07-31 01:29:53] [DEBUG]: Running validation on step 3072 is done!
+3072 0.037605506936643295 0.033352473647093143 nan
+[2026-07-31 01:29:53] [DEBUG]: New best ndcg@20=0.03761 @ step 3072 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 01:29:53] [DEBUG]: Rolling checkpoint saved @ step 3072 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 01:30:20] [DEBUG]: Running validation on step 3328...
+[2026-07-31 01:31:02] [DEBUG]: Running validation on step 3328 is done!
+[2026-07-31 01:31:29] [DEBUG]: Running validation on step 3584...
+[2026-07-31 01:32:12] [DEBUG]: Running validation on step 3584 is done!
+3584 0.03783043645914422 0.037605506936643295 nan
+[2026-07-31 01:32:12] [DEBUG]: New best ndcg@20=0.03783 @ step 3584 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 01:32:12] [DEBUG]: Rolling checkpoint saved @ step 3584 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 01:32:37] [DEBUG]: Start epoch 1
+[2026-07-31 01:32:38] [DEBUG]: Running validation on step 3840...
+[2026-07-31 01:33:21] [DEBUG]: Running validation on step 3840 is done!
+3840 0.041646797732998994 0.03783043645914422 nan
+[2026-07-31 01:33:21] [DEBUG]: New best ndcg@20=0.04165 @ step 3840 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 01:33:47] [DEBUG]: Running validation on step 4096...
+[2026-07-31 01:34:30] [DEBUG]: Running validation on step 4096 is done!
+4096 0.04573906106960694 0.041646797732998994 nan
+[2026-07-31 01:34:30] [DEBUG]: New best ndcg@20=0.04574 @ step 4096 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 01:34:30] [DEBUG]: Rolling checkpoint saved @ step 4096 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 01:34:56] [DEBUG]: Running validation on step 4352...
+[2026-07-31 01:35:39] [DEBUG]: Running validation on step 4352 is done!
+4352 0.048946575655151675 0.04573906106960694 nan
+[2026-07-31 01:35:39] [DEBUG]: New best ndcg@20=0.04895 @ step 4352 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 01:36:05] [DEBUG]: Running validation on step 4608...
+[2026-07-31 01:36:48] [DEBUG]: Running validation on step 4608 is done!
+[2026-07-31 01:36:48] [DEBUG]: Rolling checkpoint saved @ step 4608 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 01:37:14] [DEBUG]: Running validation on step 4864...
+[2026-07-31 01:37:57] [DEBUG]: Running validation on step 4864 is done!
+4864 0.05269425967769907 0.048946575655151675 nan
+[2026-07-31 01:37:57] [DEBUG]: New best ndcg@20=0.05269 @ step 4864 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 01:38:24] [DEBUG]: Running validation on step 5120...
+[2026-07-31 01:39:07] [DEBUG]: Running validation on step 5120 is done!
+[2026-07-31 01:39:07] [DEBUG]: Rolling checkpoint saved @ step 5120 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 01:39:33] [DEBUG]: Running validation on step 5376...
+[2026-07-31 01:40:16] [DEBUG]: Running validation on step 5376 is done!
+5376 0.054304939930308736 0.05269425967769907 nan
+[2026-07-31 01:40:16] [DEBUG]: New best ndcg@20=0.05430 @ step 5376 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 01:40:42] [DEBUG]: Running validation on step 5632...
+[2026-07-31 01:41:25] [DEBUG]: Running validation on step 5632 is done!
+5632 0.05922102845267744 0.054304939930308736 nan
+[2026-07-31 01:41:25] [DEBUG]: New best ndcg@20=0.05922 @ step 5632 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 01:41:25] [DEBUG]: Rolling checkpoint saved @ step 5632 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 01:41:51] [DEBUG]: Running validation on step 5888...
+[2026-07-31 01:42:34] [DEBUG]: Running validation on step 5888 is done!
+5888 0.06090933240900766 0.05922102845267744 nan
+[2026-07-31 01:42:34] [DEBUG]: New best ndcg@20=0.06091 @ step 5888 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 01:43:01] [DEBUG]: Running validation on step 6144...
+[2026-07-31 01:43:44] [DEBUG]: Running validation on step 6144 is done!
+[2026-07-31 01:43:44] [DEBUG]: Rolling checkpoint saved @ step 6144 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 01:44:10] [DEBUG]: Running validation on step 6400...
+[2026-07-31 01:44:53] [DEBUG]: Running validation on step 6400 is done!
+6400 0.06126494028463664 0.06090933240900766 nan
+[2026-07-31 01:44:53] [DEBUG]: New best ndcg@20=0.06126 @ step 6400 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 01:45:19] [DEBUG]: Running validation on step 6656...
+[2026-07-31 01:46:02] [DEBUG]: Running validation on step 6656 is done!
+6656 0.06542483266467684 0.06126494028463664 nan
+[2026-07-31 01:46:02] [DEBUG]: New best ndcg@20=0.06542 @ step 6656 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 01:46:02] [DEBUG]: Rolling checkpoint saved @ step 6656 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 01:46:29] [DEBUG]: Running validation on step 6912...
+[2026-07-31 01:47:12] [DEBUG]: Running validation on step 6912 is done!
+[2026-07-31 01:47:39] [DEBUG]: Running validation on step 7168...
+[2026-07-31 01:48:22] [DEBUG]: Running validation on step 7168 is done!
+7168 0.0675245251629921 0.06542483266467684 nan
+[2026-07-31 01:48:22] [DEBUG]: New best ndcg@20=0.06752 @ step 7168 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 01:48:22] [DEBUG]: Rolling checkpoint saved @ step 7168 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 01:48:48] [DEBUG]: Running validation on step 7424...
+[2026-07-31 01:49:31] [DEBUG]: Running validation on step 7424 is done!
+7424 0.06890691595509747 0.0675245251629921 nan
+[2026-07-31 01:49:31] [DEBUG]: New best ndcg@20=0.06891 @ step 7424 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 01:49:57] [DEBUG]: Start epoch 2
+[2026-07-31 01:49:58] [DEBUG]: Running validation on step 7680...
+[2026-07-31 01:50:41] [DEBUG]: Running validation on step 7680 is done!
+[2026-07-31 01:50:41] [DEBUG]: Rolling checkpoint saved @ step 7680 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 01:51:07] [DEBUG]: Running validation on step 7936...
+[2026-07-31 01:51:50] [DEBUG]: Running validation on step 7936 is done!
+7936 0.06973276599896269 0.06890691595509747 nan
+[2026-07-31 01:51:50] [DEBUG]: New best ndcg@20=0.06973 @ step 7936 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 01:52:16] [DEBUG]: Running validation on step 8192...
+[2026-07-31 01:52:59] [DEBUG]: Running validation on step 8192 is done!
+8192 0.07159336689884299 0.06973276599896269 nan
+[2026-07-31 01:52:59] [DEBUG]: New best ndcg@20=0.07159 @ step 8192 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 01:52:59] [DEBUG]: Rolling checkpoint saved @ step 8192 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 01:53:26] [DEBUG]: Running validation on step 8448...
+[2026-07-31 01:54:09] [DEBUG]: Running validation on step 8448 is done!
+8448 0.0777895881837567 0.07159336689884299 nan
+[2026-07-31 01:54:09] [DEBUG]: New best ndcg@20=0.07779 @ step 8448 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 01:54:35] [DEBUG]: Running validation on step 8704...
+[2026-07-31 01:55:18] [DEBUG]: Running validation on step 8704 is done!
+[2026-07-31 01:55:18] [DEBUG]: Rolling checkpoint saved @ step 8704 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 01:55:44] [DEBUG]: Running validation on step 8960...
+[2026-07-31 01:56:27] [DEBUG]: Running validation on step 8960 is done!
+8960 0.08260032153435495 0.0777895881837567 nan
+[2026-07-31 01:56:27] [DEBUG]: New best ndcg@20=0.08260 @ step 8960 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 01:56:53] [DEBUG]: Running validation on step 9216...
+[2026-07-31 01:57:36] [DEBUG]: Running validation on step 9216 is done!
+[2026-07-31 01:57:36] [DEBUG]: Rolling checkpoint saved @ step 9216 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 01:58:03] [DEBUG]: Running validation on step 9472...
+[2026-07-31 01:58:46] [DEBUG]: Running validation on step 9472 is done!
+[2026-07-31 01:59:12] [DEBUG]: Running validation on step 9728...
+[2026-07-31 01:59:55] [DEBUG]: Running validation on step 9728 is done!
+[2026-07-31 01:59:55] [DEBUG]: Rolling checkpoint saved @ step 9728 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 02:00:21] [DEBUG]: Running validation on step 9984...
+[2026-07-31 02:01:04] [DEBUG]: Running validation on step 9984 is done!
+9984 0.08477571902438899 0.08260032153435495 nan
+[2026-07-31 02:01:04] [DEBUG]: New best ndcg@20=0.08478 @ step 9984 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 02:01:31] [DEBUG]: Running validation on step 10240...
+[2026-07-31 02:02:13] [DEBUG]: Running validation on step 10240 is done!
+10240 0.08535251350000204 0.08477571902438899 nan
+[2026-07-31 02:02:14] [DEBUG]: New best ndcg@20=0.08535 @ step 10240 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 02:02:14] [DEBUG]: Rolling checkpoint saved @ step 10240 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 02:02:40] [DEBUG]: Running validation on step 10496...
+[2026-07-31 02:03:23] [DEBUG]: Running validation on step 10496 is done!
+10496 0.08623034748069892 0.08535251350000204 nan
+[2026-07-31 02:03:23] [DEBUG]: New best ndcg@20=0.08623 @ step 10496 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 02:03:49] [DEBUG]: Running validation on step 10752...
+[2026-07-31 02:04:32] [DEBUG]: Running validation on step 10752 is done!
+10752 0.08796434148356615 0.08623034748069892 nan
+[2026-07-31 02:04:32] [DEBUG]: New best ndcg@20=0.08796 @ step 10752 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 02:04:32] [DEBUG]: Rolling checkpoint saved @ step 10752 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 02:04:59] [DEBUG]: Running validation on step 11008...
+[2026-07-31 02:05:42] [DEBUG]: Running validation on step 11008 is done!
+11008 0.09121917870315101 0.08796434148356615 nan
+[2026-07-31 02:05:42] [DEBUG]: New best ndcg@20=0.09122 @ step 11008 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 02:06:08] [DEBUG]: Running validation on step 11264...
+[2026-07-31 02:06:51] [DEBUG]: Running validation on step 11264 is done!
+11264 0.09269469098391517 0.09121917870315101 nan
+[2026-07-31 02:06:51] [DEBUG]: New best ndcg@20=0.09269 @ step 11264 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 02:06:51] [DEBUG]: Rolling checkpoint saved @ step 11264 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 02:07:16] [DEBUG]: Start epoch 3
+[2026-07-31 02:07:17] [DEBUG]: Running validation on step 11520...
+[2026-07-31 02:08:00] [DEBUG]: Running validation on step 11520 is done!
+[2026-07-31 02:08:26] [DEBUG]: Running validation on step 11776...
+[2026-07-31 02:09:09] [DEBUG]: Running validation on step 11776 is done!
+11776 0.09511784811485682 0.09269469098391517 nan
+[2026-07-31 02:09:09] [DEBUG]: New best ndcg@20=0.09512 @ step 11776 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 02:09:10] [DEBUG]: Rolling checkpoint saved @ step 11776 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 02:09:36] [DEBUG]: Running validation on step 12032...
+[2026-07-31 02:10:19] [DEBUG]: Running validation on step 12032 is done!
+[2026-07-31 02:10:45] [DEBUG]: Running validation on step 12288...
+[2026-07-31 02:11:28] [DEBUG]: Running validation on step 12288 is done!
+[2026-07-31 02:11:28] [DEBUG]: Rolling checkpoint saved @ step 12288 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 02:11:54] [DEBUG]: Running validation on step 12544...
+[2026-07-31 02:12:37] [DEBUG]: Running validation on step 12544 is done!
+12544 0.10025150390304871 0.09511784811485682 nan
+[2026-07-31 02:12:37] [DEBUG]: New best ndcg@20=0.10025 @ step 12544 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 02:13:03] [DEBUG]: Running validation on step 12800...
+[2026-07-31 02:13:46] [DEBUG]: Running validation on step 12800 is done!
+[2026-07-31 02:13:46] [DEBUG]: Rolling checkpoint saved @ step 12800 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 02:14:13] [DEBUG]: Running validation on step 13056...
+[2026-07-31 02:14:56] [DEBUG]: Running validation on step 13056 is done!
+[2026-07-31 02:15:22] [DEBUG]: Running validation on step 13312...
+[2026-07-31 02:16:05] [DEBUG]: Running validation on step 13312 is done!
+[2026-07-31 02:16:05] [DEBUG]: Rolling checkpoint saved @ step 13312 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 02:16:31] [DEBUG]: Running validation on step 13568...
+[2026-07-31 02:17:14] [DEBUG]: Running validation on step 13568 is done!
+13568 0.10247700892092772 0.10025150390304871 nan
+[2026-07-31 02:17:14] [DEBUG]: New best ndcg@20=0.10248 @ step 13568 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 02:17:40] [DEBUG]: Running validation on step 13824...
+[2026-07-31 02:18:23] [DEBUG]: Running validation on step 13824 is done!
+[2026-07-31 02:18:23] [DEBUG]: Rolling checkpoint saved @ step 13824 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 02:18:50] [DEBUG]: Running validation on step 14080...
+[2026-07-31 02:19:33] [DEBUG]: Running validation on step 14080 is done!
+14080 0.10631599639425214 0.10247700892092772 nan
+[2026-07-31 02:19:33] [DEBUG]: New best ndcg@20=0.10632 @ step 14080 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 02:19:59] [DEBUG]: Running validation on step 14336...
+[2026-07-31 02:20:42] [DEBUG]: Running validation on step 14336 is done!
+[2026-07-31 02:20:42] [DEBUG]: Rolling checkpoint saved @ step 14336 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 02:21:08] [DEBUG]: Running validation on step 14592...
+[2026-07-31 02:21:51] [DEBUG]: Running validation on step 14592 is done!
+[2026-07-31 02:22:18] [DEBUG]: Running validation on step 14848...
+[2026-07-31 02:23:01] [DEBUG]: Running validation on step 14848 is done!
+[2026-07-31 02:23:01] [DEBUG]: Rolling checkpoint saved @ step 14848 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 02:23:28] [DEBUG]: Running validation on step 15104...
+[2026-07-31 02:24:10] [DEBUG]: Running validation on step 15104 is done!
+[2026-07-31 02:24:35] [DEBUG]: Start epoch 4
+[2026-07-31 02:24:37] [DEBUG]: Running validation on step 15360...
+[2026-07-31 02:25:20] [DEBUG]: Running validation on step 15360 is done!
+15360 0.10648196321597557 0.10631599639425214 nan
+[2026-07-31 02:25:20] [DEBUG]: New best ndcg@20=0.10648 @ step 15360 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 02:25:20] [DEBUG]: Rolling checkpoint saved @ step 15360 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 02:25:46] [DEBUG]: Running validation on step 15616...
+[2026-07-31 02:26:29] [DEBUG]: Running validation on step 15616 is done!
+15616 0.10917262273118986 0.10648196321597557 nan
+[2026-07-31 02:26:29] [DEBUG]: New best ndcg@20=0.10917 @ step 15616 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 02:26:56] [DEBUG]: Running validation on step 15872...
+[2026-07-31 02:27:38] [DEBUG]: Running validation on step 15872 is done!
+[2026-07-31 02:27:39] [DEBUG]: Rolling checkpoint saved @ step 15872 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 02:28:05] [DEBUG]: Running validation on step 16128...
+[2026-07-31 02:28:48] [DEBUG]: Running validation on step 16128 is done!
+16128 0.10959132930744958 0.10917262273118986 nan
+[2026-07-31 02:28:48] [DEBUG]: New best ndcg@20=0.10959 @ step 16128 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 02:29:14] [DEBUG]: Running validation on step 16384...
+[2026-07-31 02:29:57] [DEBUG]: Running validation on step 16384 is done!
+[2026-07-31 02:29:57] [DEBUG]: Rolling checkpoint saved @ step 16384 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 02:30:24] [DEBUG]: Running validation on step 16640...
+[2026-07-31 02:31:07] [DEBUG]: Running validation on step 16640 is done!
+[2026-07-31 02:31:33] [DEBUG]: Running validation on step 16896...
+[2026-07-31 02:32:16] [DEBUG]: Running validation on step 16896 is done!
+[2026-07-31 02:32:16] [DEBUG]: Rolling checkpoint saved @ step 16896 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 02:32:42] [DEBUG]: Running validation on step 17152...
+[2026-07-31 02:33:25] [DEBUG]: Running validation on step 17152 is done!
+17152 0.11075217834124897 0.10959132930744958 nan
+[2026-07-31 02:33:25] [DEBUG]: New best ndcg@20=0.11075 @ step 17152 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 02:33:51] [DEBUG]: Running validation on step 17408...
+[2026-07-31 02:34:34] [DEBUG]: Running validation on step 17408 is done!
+17408 0.11175268838638501 0.11075217834124897 nan
+[2026-07-31 02:34:34] [DEBUG]: New best ndcg@20=0.11175 @ step 17408 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 02:34:34] [DEBUG]: Rolling checkpoint saved @ step 17408 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 02:35:01] [DEBUG]: Running validation on step 17664...
+[2026-07-31 02:35:44] [DEBUG]: Running validation on step 17664 is done!
+17664 0.11254604681586193 0.11175268838638501 nan
+[2026-07-31 02:35:44] [DEBUG]: New best ndcg@20=0.11255 @ step 17664 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 02:36:10] [DEBUG]: Running validation on step 17920...
+[2026-07-31 02:36:53] [DEBUG]: Running validation on step 17920 is done!
+17920 0.11376971552358163 0.11254604681586193 nan
+[2026-07-31 02:36:53] [DEBUG]: New best ndcg@20=0.11377 @ step 17920 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 02:36:53] [DEBUG]: Rolling checkpoint saved @ step 17920 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 02:37:19] [DEBUG]: Running validation on step 18176...
+[2026-07-31 02:38:02] [DEBUG]: Running validation on step 18176 is done!
+[2026-07-31 02:38:28] [DEBUG]: Running validation on step 18432...
+[2026-07-31 02:39:11] [DEBUG]: Running validation on step 18432 is done!
+18432 0.11473851454327043 0.11376971552358163 nan
+[2026-07-31 02:39:11] [DEBUG]: New best ndcg@20=0.11474 @ step 18432 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 02:39:12] [DEBUG]: Rolling checkpoint saved @ step 18432 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 02:39:38] [DEBUG]: Running validation on step 18688...
+[2026-07-31 02:40:21] [DEBUG]: Running validation on step 18688 is done!
+18688 0.11707759610075034 0.11473851454327043 nan
+[2026-07-31 02:40:21] [DEBUG]: New best ndcg@20=0.11708 @ step 18688 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 02:40:47] [DEBUG]: Running validation on step 18944...
+[2026-07-31 02:41:30] [DEBUG]: Running validation on step 18944 is done!
+[2026-07-31 02:41:30] [DEBUG]: Rolling checkpoint saved @ step 18944 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 02:41:54] [DEBUG]: Start epoch 5
+[2026-07-31 02:41:57] [DEBUG]: Running validation on step 19200...
+[2026-07-31 02:42:40] [DEBUG]: Running validation on step 19200 is done!
+[2026-07-31 02:43:06] [DEBUG]: Running validation on step 19456...
+[2026-07-31 02:43:49] [DEBUG]: Running validation on step 19456 is done!
+19456 0.11736255841736762 0.11707759610075034 nan
+[2026-07-31 02:43:49] [DEBUG]: New best ndcg@20=0.11736 @ step 19456 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 02:43:49] [DEBUG]: Rolling checkpoint saved @ step 19456 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 02:44:15] [DEBUG]: Running validation on step 19712...
+[2026-07-31 02:44:58] [DEBUG]: Running validation on step 19712 is done!
+[2026-07-31 02:45:24] [DEBUG]: Running validation on step 19968...
+[2026-07-31 02:46:07] [DEBUG]: Running validation on step 19968 is done!
+[2026-07-31 02:46:07] [DEBUG]: Rolling checkpoint saved @ step 19968 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 02:46:34] [DEBUG]: Running validation on step 20224...
+[2026-07-31 02:47:17] [DEBUG]: Running validation on step 20224 is done!
+20224 0.11863071379430641 0.11736255841736762 nan
+[2026-07-31 02:47:17] [DEBUG]: New best ndcg@20=0.11863 @ step 20224 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 02:47:43] [DEBUG]: Running validation on step 20480...
+[2026-07-31 02:48:26] [DEBUG]: Running validation on step 20480 is done!
+[2026-07-31 02:48:26] [DEBUG]: Rolling checkpoint saved @ step 20480 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 02:48:52] [DEBUG]: Running validation on step 20736...
+[2026-07-31 02:49:35] [DEBUG]: Running validation on step 20736 is done!
+[2026-07-31 02:50:02] [DEBUG]: Running validation on step 20992...
+[2026-07-31 02:50:45] [DEBUG]: Running validation on step 20992 is done!
+[2026-07-31 02:50:45] [DEBUG]: Rolling checkpoint saved @ step 20992 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 02:51:11] [DEBUG]: Running validation on step 21248...
+[2026-07-31 02:51:54] [DEBUG]: Running validation on step 21248 is done!
+[2026-07-31 02:52:20] [DEBUG]: Running validation on step 21504...
+[2026-07-31 02:53:03] [DEBUG]: Running validation on step 21504 is done!
+[2026-07-31 02:53:03] [DEBUG]: Rolling checkpoint saved @ step 21504 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 02:53:29] [DEBUG]: Running validation on step 21760...
+[2026-07-31 02:54:12] [DEBUG]: Running validation on step 21760 is done!
+21760 0.12251995290500044 0.11863071379430641 nan
+[2026-07-31 02:54:12] [DEBUG]: New best ndcg@20=0.12252 @ step 21760 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 02:54:39] [DEBUG]: Running validation on step 22016...
+[2026-07-31 02:55:22] [DEBUG]: Running validation on step 22016 is done!
+[2026-07-31 02:55:22] [DEBUG]: Rolling checkpoint saved @ step 22016 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 02:55:48] [DEBUG]: Running validation on step 22272...
+[2026-07-31 02:56:31] [DEBUG]: Running validation on step 22272 is done!
+22272 0.12334896106001557 0.12251995290500044 nan
+[2026-07-31 02:56:31] [DEBUG]: New best ndcg@20=0.12335 @ step 22272 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 02:56:58] [DEBUG]: Running validation on step 22528...
+[2026-07-31 02:57:41] [DEBUG]: Running validation on step 22528 is done!
+[2026-07-31 02:57:41] [DEBUG]: Rolling checkpoint saved @ step 22528 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 02:58:08] [DEBUG]: Running validation on step 22784...
+[2026-07-31 02:58:51] [DEBUG]: Running validation on step 22784 is done!
+22784 0.12491562053413185 0.12334896106001557 nan
+[2026-07-31 02:58:51] [DEBUG]: New best ndcg@20=0.12492 @ step 22784 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 02:59:14] [DEBUG]: Start epoch 6
+[2026-07-31 02:59:17] [DEBUG]: Running validation on step 23040...
+[2026-07-31 03:00:00] [DEBUG]: Running validation on step 23040 is done!
+[2026-07-31 03:00:00] [DEBUG]: Rolling checkpoint saved @ step 23040 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 03:00:26] [DEBUG]: Running validation on step 23296...
+[2026-07-31 03:01:09] [DEBUG]: Running validation on step 23296 is done!
+[2026-07-31 03:01:36] [DEBUG]: Running validation on step 23552...
+[2026-07-31 03:02:19] [DEBUG]: Running validation on step 23552 is done!
+[2026-07-31 03:02:19] [DEBUG]: Rolling checkpoint saved @ step 23552 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 03:02:45] [DEBUG]: Running validation on step 23808...
+[2026-07-31 03:03:28] [DEBUG]: Running validation on step 23808 is done!
+[2026-07-31 03:03:54] [DEBUG]: Running validation on step 24064...
+[2026-07-31 03:04:37] [DEBUG]: Running validation on step 24064 is done!
+24064 0.12569363343942638 0.12491562053413185 nan
+[2026-07-31 03:04:37] [DEBUG]: New best ndcg@20=0.12569 @ step 24064 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 03:04:37] [DEBUG]: Rolling checkpoint saved @ step 24064 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 03:05:03] [DEBUG]: Running validation on step 24320...
+[2026-07-31 03:05:46] [DEBUG]: Running validation on step 24320 is done!
+[2026-07-31 03:06:13] [DEBUG]: Running validation on step 24576...
+[2026-07-31 03:06:56] [DEBUG]: Running validation on step 24576 is done!
+[2026-07-31 03:06:56] [DEBUG]: Rolling checkpoint saved @ step 24576 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 03:07:22] [DEBUG]: Running validation on step 24832...
+[2026-07-31 03:08:05] [DEBUG]: Running validation on step 24832 is done!
+[2026-07-31 03:08:31] [DEBUG]: Running validation on step 25088...
+[2026-07-31 03:09:14] [DEBUG]: Running validation on step 25088 is done!
+25088 0.12850647722401762 0.12569363343942638 nan
+[2026-07-31 03:09:14] [DEBUG]: New best ndcg@20=0.12851 @ step 25088 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 03:09:14] [DEBUG]: Rolling checkpoint saved @ step 25088 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 03:09:41] [DEBUG]: Running validation on step 25344...
+[2026-07-31 03:10:24] [DEBUG]: Running validation on step 25344 is done!
+[2026-07-31 03:10:50] [DEBUG]: Running validation on step 25600...
+[2026-07-31 03:11:33] [DEBUG]: Running validation on step 25600 is done!
+25600 0.13045822526790843 0.12850647722401762 nan
+[2026-07-31 03:11:33] [DEBUG]: New best ndcg@20=0.13046 @ step 25600 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 03:11:33] [DEBUG]: Rolling checkpoint saved @ step 25600 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 03:11:59] [DEBUG]: Running validation on step 25856...
+[2026-07-31 03:12:42] [DEBUG]: Running validation on step 25856 is done!
+[2026-07-31 03:13:09] [DEBUG]: Running validation on step 26112...
+[2026-07-31 03:13:51] [DEBUG]: Running validation on step 26112 is done!
+[2026-07-31 03:13:52] [DEBUG]: Rolling checkpoint saved @ step 26112 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 03:14:18] [DEBUG]: Running validation on step 26368...
+[2026-07-31 03:15:01] [DEBUG]: Running validation on step 26368 is done!
+26368 0.1318709035410194 0.13045822526790843 nan
+[2026-07-31 03:15:01] [DEBUG]: New best ndcg@20=0.13187 @ step 26368 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 03:15:27] [DEBUG]: Running validation on step 26624...
+[2026-07-31 03:16:10] [DEBUG]: Running validation on step 26624 is done!
+[2026-07-31 03:16:10] [DEBUG]: Rolling checkpoint saved @ step 26624 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 03:16:34] [DEBUG]: Start epoch 7
+[2026-07-31 03:16:37] [DEBUG]: Running validation on step 26880...
+[2026-07-31 03:17:19] [DEBUG]: Running validation on step 26880 is done!
+26880 0.13421368200998038 0.1318709035410194 nan
+[2026-07-31 03:17:19] [DEBUG]: New best ndcg@20=0.13421 @ step 26880 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 03:17:46] [DEBUG]: Running validation on step 27136...
+[2026-07-31 03:18:29] [DEBUG]: Running validation on step 27136 is done!
+[2026-07-31 03:18:29] [DEBUG]: Rolling checkpoint saved @ step 27136 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 03:18:55] [DEBUG]: Running validation on step 27392...
+[2026-07-31 03:19:38] [DEBUG]: Running validation on step 27392 is done!
+[2026-07-31 03:20:04] [DEBUG]: Running validation on step 27648...
+[2026-07-31 03:20:47] [DEBUG]: Running validation on step 27648 is done!
+[2026-07-31 03:20:47] [DEBUG]: Rolling checkpoint saved @ step 27648 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 03:21:14] [DEBUG]: Running validation on step 27904...
+[2026-07-31 03:21:57] [DEBUG]: Running validation on step 27904 is done!
+[2026-07-31 03:22:23] [DEBUG]: Running validation on step 28160...
+[2026-07-31 03:23:06] [DEBUG]: Running validation on step 28160 is done!
+[2026-07-31 03:23:06] [DEBUG]: Rolling checkpoint saved @ step 28160 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 03:23:32] [DEBUG]: Running validation on step 28416...
+[2026-07-31 03:24:15] [DEBUG]: Running validation on step 28416 is done!
+[2026-07-31 03:24:41] [DEBUG]: Running validation on step 28672...
+[2026-07-31 03:25:24] [DEBUG]: Running validation on step 28672 is done!
+[2026-07-31 03:25:24] [DEBUG]: Rolling checkpoint saved @ step 28672 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 03:25:51] [DEBUG]: Running validation on step 28928...
+[2026-07-31 03:26:34] [DEBUG]: Running validation on step 28928 is done!
+28928 0.13520427632410795 0.13421368200998038 nan
+[2026-07-31 03:26:34] [DEBUG]: New best ndcg@20=0.13520 @ step 28928 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 03:27:00] [DEBUG]: Running validation on step 29184...
+[2026-07-31 03:27:43] [DEBUG]: Running validation on step 29184 is done!
+[2026-07-31 03:27:43] [DEBUG]: Rolling checkpoint saved @ step 29184 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 03:28:09] [DEBUG]: Running validation on step 29440...
+[2026-07-31 03:28:52] [DEBUG]: Running validation on step 29440 is done!
+29440 0.13532415288716357 0.13520427632410795 nan
+[2026-07-31 03:28:52] [DEBUG]: New best ndcg@20=0.13532 @ step 29440 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 03:29:18] [DEBUG]: Running validation on step 29696...
+[2026-07-31 03:30:01] [DEBUG]: Running validation on step 29696 is done!
+[2026-07-31 03:30:01] [DEBUG]: Rolling checkpoint saved @ step 29696 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 03:30:28] [DEBUG]: Running validation on step 29952...
+[2026-07-31 03:31:11] [DEBUG]: Running validation on step 29952 is done!
+[2026-07-31 03:31:37] [DEBUG]: Running validation on step 30208...
+[2026-07-31 03:32:20] [DEBUG]: Running validation on step 30208 is done!
+[2026-07-31 03:32:20] [DEBUG]: Rolling checkpoint saved @ step 30208 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 03:32:47] [DEBUG]: Running validation on step 30464...
+[2026-07-31 03:33:30] [DEBUG]: Running validation on step 30464 is done!
+[2026-07-31 03:33:53] [DEBUG]: Start epoch 8
+[2026-07-31 03:33:57] [DEBUG]: Running validation on step 30720...
+[2026-07-31 03:34:40] [DEBUG]: Running validation on step 30720 is done!
+[2026-07-31 03:34:40] [DEBUG]: Rolling checkpoint saved @ step 30720 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 03:35:06] [DEBUG]: Running validation on step 30976...
+[2026-07-31 03:35:49] [DEBUG]: Running validation on step 30976 is done!
+[2026-07-31 03:36:16] [DEBUG]: Running validation on step 31232...
+[2026-07-31 03:37:17] [DEBUG]: Running validation on step 31232 is done!
+31232 0.13586425509131111 0.13532415288716357 nan
+[2026-07-31 03:37:17] [DEBUG]: New best ndcg@20=0.13586 @ step 31232 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 03:37:17] [DEBUG]: Rolling checkpoint saved @ step 31232 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 03:37:59] [DEBUG]: Running validation on step 31488...
+[2026-07-31 03:38:42] [DEBUG]: Running validation on step 31488 is done!
+31488 0.13635405877617415 0.13586425509131111 nan
+[2026-07-31 03:38:42] [DEBUG]: New best ndcg@20=0.13635 @ step 31488 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 03:39:12] [DEBUG]: Running validation on step 31744...
+[2026-07-31 03:39:55] [DEBUG]: Running validation on step 31744 is done!
+[2026-07-31 03:39:55] [DEBUG]: Rolling checkpoint saved @ step 31744 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 03:40:22] [DEBUG]: Running validation on step 32000...
+[2026-07-31 03:41:11] [DEBUG]: Running validation on step 32000 is done!
+32000 0.13686738932468243 0.13635405877617415 nan
+[2026-07-31 03:41:11] [DEBUG]: New best ndcg@20=0.13687 @ step 32000 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 03:41:38] [DEBUG]: Running validation on step 32256...
+[2026-07-31 03:42:21] [DEBUG]: Running validation on step 32256 is done!
+[2026-07-31 03:42:21] [DEBUG]: Rolling checkpoint saved @ step 32256 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 03:42:53] [DEBUG]: Running validation on step 32512...
+[2026-07-31 03:43:36] [DEBUG]: Running validation on step 32512 is done!
+32512 0.13763810765762993 0.13686738932468243 nan
+[2026-07-31 03:43:36] [DEBUG]: New best ndcg@20=0.13764 @ step 32512 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 03:44:03] [DEBUG]: Running validation on step 32768...
+[2026-07-31 03:44:46] [DEBUG]: Running validation on step 32768 is done!
+[2026-07-31 03:44:46] [DEBUG]: Rolling checkpoint saved @ step 32768 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 03:45:13] [DEBUG]: Running validation on step 33024...
+[2026-07-31 03:45:56] [DEBUG]: Running validation on step 33024 is done!
+33024 0.1429042759419277 0.13763810765762993 nan
+[2026-07-31 03:45:56] [DEBUG]: New best ndcg@20=0.14290 @ step 33024 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 03:46:22] [DEBUG]: Running validation on step 33280...
+[2026-07-31 03:47:05] [DEBUG]: Running validation on step 33280 is done!
+[2026-07-31 03:47:05] [DEBUG]: Rolling checkpoint saved @ step 33280 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 03:47:31] [DEBUG]: Running validation on step 33536...
+[2026-07-31 03:48:14] [DEBUG]: Running validation on step 33536 is done!
+[2026-07-31 03:48:41] [DEBUG]: Running validation on step 33792...
+[2026-07-31 03:49:24] [DEBUG]: Running validation on step 33792 is done!
+[2026-07-31 03:49:24] [DEBUG]: Rolling checkpoint saved @ step 33792 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 03:49:50] [DEBUG]: Running validation on step 34048...
+[2026-07-31 03:50:33] [DEBUG]: Running validation on step 34048 is done!
+[2026-07-31 03:51:00] [DEBUG]: Running validation on step 34304...
+[2026-07-31 03:51:43] [DEBUG]: Running validation on step 34304 is done!
+[2026-07-31 03:51:43] [DEBUG]: Rolling checkpoint saved @ step 34304 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 03:52:05] [DEBUG]: Start epoch 9
+[2026-07-31 03:52:09] [DEBUG]: Running validation on step 34560...
+[2026-07-31 03:52:52] [DEBUG]: Running validation on step 34560 is done!
+[2026-07-31 03:53:19] [DEBUG]: Running validation on step 34816...
+[2026-07-31 03:54:01] [DEBUG]: Running validation on step 34816 is done!
+[2026-07-31 03:54:02] [DEBUG]: Rolling checkpoint saved @ step 34816 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 03:54:28] [DEBUG]: Running validation on step 35072...
+[2026-07-31 03:55:11] [DEBUG]: Running validation on step 35072 is done!
+[2026-07-31 03:55:37] [DEBUG]: Running validation on step 35328...
+[2026-07-31 03:56:20] [DEBUG]: Running validation on step 35328 is done!
+[2026-07-31 03:56:20] [DEBUG]: Rolling checkpoint saved @ step 35328 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 03:56:46] [DEBUG]: Running validation on step 35584...
+[2026-07-31 03:57:29] [DEBUG]: Running validation on step 35584 is done!
+[2026-07-31 03:57:56] [DEBUG]: Running validation on step 35840...
+[2026-07-31 03:58:39] [DEBUG]: Running validation on step 35840 is done!
+35840 0.14320940559865622 0.1429042759419277 nan
+[2026-07-31 03:58:39] [DEBUG]: New best ndcg@20=0.14321 @ step 35840 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 03:58:39] [DEBUG]: Rolling checkpoint saved @ step 35840 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 03:59:05] [DEBUG]: Running validation on step 36096...
+[2026-07-31 03:59:48] [DEBUG]: Running validation on step 36096 is done!
+[2026-07-31 04:00:14] [DEBUG]: Running validation on step 36352...
+[2026-07-31 04:00:57] [DEBUG]: Running validation on step 36352 is done!
+[2026-07-31 04:00:57] [DEBUG]: Rolling checkpoint saved @ step 36352 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 04:01:23] [DEBUG]: Running validation on step 36608...
+[2026-07-31 04:02:06] [DEBUG]: Running validation on step 36608 is done!
+[2026-07-31 04:02:33] [DEBUG]: Running validation on step 36864...
+[2026-07-31 04:03:16] [DEBUG]: Running validation on step 36864 is done!
+36864 0.14324304640835878 0.14320940559865622 nan
+[2026-07-31 04:03:16] [DEBUG]: New best ndcg@20=0.14324 @ step 36864 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 04:03:16] [DEBUG]: Rolling checkpoint saved @ step 36864 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 04:03:42] [DEBUG]: Running validation on step 37120...
+[2026-07-31 04:04:25] [DEBUG]: Running validation on step 37120 is done!
+37120 0.1433541694273617 0.14324304640835878 nan
+[2026-07-31 04:04:25] [DEBUG]: New best ndcg@20=0.14335 @ step 37120 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 04:04:52] [DEBUG]: Running validation on step 37376...
+[2026-07-31 04:05:35] [DEBUG]: Running validation on step 37376 is done!
+[2026-07-31 04:05:35] [DEBUG]: Rolling checkpoint saved @ step 37376 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 04:06:01] [DEBUG]: Running validation on step 37632...
+[2026-07-31 04:06:44] [DEBUG]: Running validation on step 37632 is done!
+[2026-07-31 04:07:10] [DEBUG]: Running validation on step 37888...
+[2026-07-31 04:07:53] [DEBUG]: Running validation on step 37888 is done!
+37888 0.14549503184312226 0.1433541694273617 nan
+[2026-07-31 04:07:53] [DEBUG]: New best ndcg@20=0.14550 @ step 37888 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 04:07:53] [DEBUG]: Rolling checkpoint saved @ step 37888 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 04:08:20] [DEBUG]: Running validation on step 38144...
+[2026-07-31 04:09:05] [DEBUG]: Running validation on step 38144 is done!
+[2026-07-31 04:09:27] [DEBUG]: Start epoch 10
+[2026-07-31 04:09:31] [DEBUG]: Running validation on step 38400...
+[2026-07-31 04:10:14] [DEBUG]: Running validation on step 38400 is done!
+[2026-07-31 04:10:14] [DEBUG]: Rolling checkpoint saved @ step 38400 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 04:10:40] [DEBUG]: Running validation on step 38656...
+[2026-07-31 04:11:23] [DEBUG]: Running validation on step 38656 is done!
+[2026-07-31 04:11:49] [DEBUG]: Running validation on step 38912...
+[2026-07-31 04:12:32] [DEBUG]: Running validation on step 38912 is done!
+[2026-07-31 04:12:32] [DEBUG]: Rolling checkpoint saved @ step 38912 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 04:12:59] [DEBUG]: Running validation on step 39168...
+[2026-07-31 04:13:42] [DEBUG]: Running validation on step 39168 is done!
+[2026-07-31 04:14:08] [DEBUG]: Running validation on step 39424...
+[2026-07-31 04:14:51] [DEBUG]: Running validation on step 39424 is done!
+[2026-07-31 04:14:51] [DEBUG]: Rolling checkpoint saved @ step 39424 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 04:15:17] [DEBUG]: Running validation on step 39680...
+[2026-07-31 04:16:00] [DEBUG]: Running validation on step 39680 is done!
+[2026-07-31 04:16:26] [DEBUG]: Running validation on step 39936...
+[2026-07-31 04:17:09] [DEBUG]: Running validation on step 39936 is done!
+[2026-07-31 04:17:09] [DEBUG]: Rolling checkpoint saved @ step 39936 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 04:17:36] [DEBUG]: Running validation on step 40192...
+[2026-07-31 04:18:18] [DEBUG]: Running validation on step 40192 is done!
+40192 0.1483168027480904 0.14549503184312226 nan
+[2026-07-31 04:18:19] [DEBUG]: New best ndcg@20=0.14832 @ step 40192 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 04:18:45] [DEBUG]: Running validation on step 40448...
+[2026-07-31 04:19:28] [DEBUG]: Running validation on step 40448 is done!
+[2026-07-31 04:19:28] [DEBUG]: Rolling checkpoint saved @ step 40448 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 04:19:54] [DEBUG]: Running validation on step 40704...
+[2026-07-31 04:20:37] [DEBUG]: Running validation on step 40704 is done!
+[2026-07-31 04:21:04] [DEBUG]: Running validation on step 40960...
+[2026-07-31 04:21:47] [DEBUG]: Running validation on step 40960 is done!
+[2026-07-31 04:21:47] [DEBUG]: Rolling checkpoint saved @ step 40960 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 04:22:13] [DEBUG]: Running validation on step 41216...
+[2026-07-31 04:22:56] [DEBUG]: Running validation on step 41216 is done!
+[2026-07-31 04:23:22] [DEBUG]: Running validation on step 41472...
+[2026-07-31 04:24:05] [DEBUG]: Running validation on step 41472 is done!
+[2026-07-31 04:24:05] [DEBUG]: Rolling checkpoint saved @ step 41472 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 04:24:32] [DEBUG]: Running validation on step 41728...
+[2026-07-31 04:25:14] [DEBUG]: Running validation on step 41728 is done!
+41728 0.14875434056812564 0.1483168027480904 nan
+[2026-07-31 04:25:14] [DEBUG]: New best ndcg@20=0.14875 @ step 41728 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 04:25:41] [DEBUG]: Running validation on step 41984...
+[2026-07-31 04:26:24] [DEBUG]: Running validation on step 41984 is done!
+[2026-07-31 04:26:24] [DEBUG]: Rolling checkpoint saved @ step 41984 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 04:26:45] [DEBUG]: Start epoch 11
+[2026-07-31 04:26:50] [DEBUG]: Running validation on step 42240...
+[2026-07-31 04:27:33] [DEBUG]: Running validation on step 42240 is done!
+42240 0.14984797952042905 0.14875434056812564 nan
+[2026-07-31 04:27:33] [DEBUG]: New best ndcg@20=0.14985 @ step 42240 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 04:27:59] [DEBUG]: Running validation on step 42496...
+[2026-07-31 04:28:42] [DEBUG]: Running validation on step 42496 is done!
+[2026-07-31 04:28:42] [DEBUG]: Rolling checkpoint saved @ step 42496 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 04:29:08] [DEBUG]: Running validation on step 42752...
+[2026-07-31 04:29:51] [DEBUG]: Running validation on step 42752 is done!
+[2026-07-31 04:30:17] [DEBUG]: Running validation on step 43008...
+[2026-07-31 04:31:00] [DEBUG]: Running validation on step 43008 is done!
+[2026-07-31 04:31:00] [DEBUG]: Rolling checkpoint saved @ step 43008 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 04:31:27] [DEBUG]: Running validation on step 43264...
+[2026-07-31 04:32:10] [DEBUG]: Running validation on step 43264 is done!
+43264 0.1513712269580917 0.14984797952042905 nan
+[2026-07-31 04:32:10] [DEBUG]: New best ndcg@20=0.15137 @ step 43264 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 04:32:36] [DEBUG]: Running validation on step 43520...
+[2026-07-31 04:33:19] [DEBUG]: Running validation on step 43520 is done!
+[2026-07-31 04:33:19] [DEBUG]: Rolling checkpoint saved @ step 43520 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 04:33:46] [DEBUG]: Running validation on step 43776...
+[2026-07-31 04:34:29] [DEBUG]: Running validation on step 43776 is done!
+[2026-07-31 04:34:55] [DEBUG]: Running validation on step 44032...
+[2026-07-31 04:35:38] [DEBUG]: Running validation on step 44032 is done!
+44032 0.15151199080198016 0.1513712269580917 nan
+[2026-07-31 04:35:38] [DEBUG]: New best ndcg@20=0.15151 @ step 44032 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 04:35:38] [DEBUG]: Rolling checkpoint saved @ step 44032 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 04:36:04] [DEBUG]: Running validation on step 44288...
+[2026-07-31 04:36:47] [DEBUG]: Running validation on step 44288 is done!
+[2026-07-31 04:37:13] [DEBUG]: Running validation on step 44544...
+[2026-07-31 04:37:56] [DEBUG]: Running validation on step 44544 is done!
+[2026-07-31 04:37:56] [DEBUG]: Rolling checkpoint saved @ step 44544 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 04:38:23] [DEBUG]: Running validation on step 44800...
+[2026-07-31 04:39:06] [DEBUG]: Running validation on step 44800 is done!
+[2026-07-31 04:39:32] [DEBUG]: Running validation on step 45056...
+[2026-07-31 04:40:15] [DEBUG]: Running validation on step 45056 is done!
+[2026-07-31 04:40:15] [DEBUG]: Rolling checkpoint saved @ step 45056 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 04:40:41] [DEBUG]: Running validation on step 45312...
+[2026-07-31 04:41:24] [DEBUG]: Running validation on step 45312 is done!
+[2026-07-31 04:41:50] [DEBUG]: Running validation on step 45568...
+[2026-07-31 04:42:33] [DEBUG]: Running validation on step 45568 is done!
+[2026-07-31 04:42:34] [DEBUG]: Rolling checkpoint saved @ step 45568 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 04:43:01] [DEBUG]: Running validation on step 45824...
+[2026-07-31 04:43:44] [DEBUG]: Running validation on step 45824 is done!
+[2026-07-31 04:44:05] [DEBUG]: Start epoch 12
+[2026-07-31 04:44:10] [DEBUG]: Running validation on step 46080...
+[2026-07-31 04:44:53] [DEBUG]: Running validation on step 46080 is done!
+46080 0.15241140940824882 0.15151199080198016 nan
+[2026-07-31 04:44:53] [DEBUG]: New best ndcg@20=0.15241 @ step 46080 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 04:44:53] [DEBUG]: Rolling checkpoint saved @ step 46080 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 04:45:19] [DEBUG]: Running validation on step 46336...
+[2026-07-31 04:46:02] [DEBUG]: Running validation on step 46336 is done!
+[2026-07-31 04:46:29] [DEBUG]: Running validation on step 46592...
+[2026-07-31 04:47:12] [DEBUG]: Running validation on step 46592 is done!
+[2026-07-31 04:47:12] [DEBUG]: Rolling checkpoint saved @ step 46592 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 04:47:38] [DEBUG]: Running validation on step 46848...
+[2026-07-31 04:48:21] [DEBUG]: Running validation on step 46848 is done!
+[2026-07-31 04:48:47] [DEBUG]: Running validation on step 47104...
+[2026-07-31 04:49:30] [DEBUG]: Running validation on step 47104 is done!
+[2026-07-31 04:49:30] [DEBUG]: Rolling checkpoint saved @ step 47104 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 04:49:56] [DEBUG]: Running validation on step 47360...
+[2026-07-31 04:50:39] [DEBUG]: Running validation on step 47360 is done!
+47360 0.15415922764762743 0.15241140940824882 nan
+[2026-07-31 04:50:39] [DEBUG]: New best ndcg@20=0.15416 @ step 47360 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 04:51:06] [DEBUG]: Running validation on step 47616...
+[2026-07-31 04:51:49] [DEBUG]: Running validation on step 47616 is done!
+[2026-07-31 04:51:49] [DEBUG]: Rolling checkpoint saved @ step 47616 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 04:52:15] [DEBUG]: Running validation on step 47872...
+[2026-07-31 04:52:58] [DEBUG]: Running validation on step 47872 is done!
+47872 0.15525760627937632 0.15415922764762743 nan
+[2026-07-31 04:52:58] [DEBUG]: New best ndcg@20=0.15526 @ step 47872 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 04:53:24] [DEBUG]: Running validation on step 48128...
+[2026-07-31 04:54:07] [DEBUG]: Running validation on step 48128 is done!
+[2026-07-31 04:54:07] [DEBUG]: Rolling checkpoint saved @ step 48128 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 04:54:33] [DEBUG]: Running validation on step 48384...
+[2026-07-31 04:55:16] [DEBUG]: Running validation on step 48384 is done!
+[2026-07-31 04:55:42] [DEBUG]: Running validation on step 48640...
+[2026-07-31 04:56:25] [DEBUG]: Running validation on step 48640 is done!
+[2026-07-31 04:56:25] [DEBUG]: Rolling checkpoint saved @ step 48640 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 04:56:51] [DEBUG]: Running validation on step 48896...
+[2026-07-31 04:57:34] [DEBUG]: Running validation on step 48896 is done!
+[2026-07-31 04:58:01] [DEBUG]: Running validation on step 49152...
+[2026-07-31 04:58:44] [DEBUG]: Running validation on step 49152 is done!
+[2026-07-31 04:58:44] [DEBUG]: Rolling checkpoint saved @ step 49152 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 04:59:10] [DEBUG]: Running validation on step 49408...
+[2026-07-31 04:59:53] [DEBUG]: Running validation on step 49408 is done!
+[2026-07-31 05:00:19] [DEBUG]: Running validation on step 49664...
+[2026-07-31 05:01:02] [DEBUG]: Running validation on step 49664 is done!
+[2026-07-31 05:01:02] [DEBUG]: Rolling checkpoint saved @ step 49664 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 05:01:23] [DEBUG]: Start epoch 13
+[2026-07-31 05:01:29] [DEBUG]: Running validation on step 49920...
+[2026-07-31 05:02:11] [DEBUG]: Running validation on step 49920 is done!
+[2026-07-31 05:02:38] [DEBUG]: Running validation on step 50176...
+[2026-07-31 05:03:21] [DEBUG]: Running validation on step 50176 is done!
+[2026-07-31 05:03:21] [DEBUG]: Rolling checkpoint saved @ step 50176 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 05:03:47] [DEBUG]: Running validation on step 50432...
+[2026-07-31 05:04:30] [DEBUG]: Running validation on step 50432 is done!
+[2026-07-31 05:04:56] [DEBUG]: Running validation on step 50688...
+[2026-07-31 05:05:39] [DEBUG]: Running validation on step 50688 is done!
+[2026-07-31 05:05:39] [DEBUG]: Rolling checkpoint saved @ step 50688 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 05:06:05] [DEBUG]: Running validation on step 50944...
+[2026-07-31 05:06:48] [DEBUG]: Running validation on step 50944 is done!
+[2026-07-31 05:07:15] [DEBUG]: Running validation on step 51200...
+[2026-07-31 05:07:58] [DEBUG]: Running validation on step 51200 is done!
+[2026-07-31 05:07:58] [DEBUG]: Rolling checkpoint saved @ step 51200 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 05:08:24] [DEBUG]: Running validation on step 51456...
+[2026-07-31 05:09:07] [DEBUG]: Running validation on step 51456 is done!
+[2026-07-31 05:09:33] [DEBUG]: Running validation on step 51712...
+[2026-07-31 05:10:16] [DEBUG]: Running validation on step 51712 is done!
+[2026-07-31 05:10:16] [DEBUG]: Rolling checkpoint saved @ step 51712 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 05:10:43] [DEBUG]: Running validation on step 51968...
+[2026-07-31 05:11:26] [DEBUG]: Running validation on step 51968 is done!
+[2026-07-31 05:11:52] [DEBUG]: Running validation on step 52224...
+[2026-07-31 05:12:35] [DEBUG]: Running validation on step 52224 is done!
+[2026-07-31 05:12:35] [DEBUG]: Rolling checkpoint saved @ step 52224 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 05:13:01] [DEBUG]: Running validation on step 52480...
+[2026-07-31 05:13:44] [DEBUG]: Running validation on step 52480 is done!
+[2026-07-31 05:14:10] [DEBUG]: Running validation on step 52736...
+[2026-07-31 05:14:53] [DEBUG]: Running validation on step 52736 is done!
+52736 0.1555523220844419 0.15525760627937632 nan
+[2026-07-31 05:14:53] [DEBUG]: New best ndcg@20=0.15555 @ step 52736 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 05:14:53] [DEBUG]: Rolling checkpoint saved @ step 52736 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 05:15:20] [DEBUG]: Running validation on step 52992...
+[2026-07-31 05:16:03] [DEBUG]: Running validation on step 52992 is done!
+[2026-07-31 05:16:29] [DEBUG]: Running validation on step 53248...
+[2026-07-31 05:17:12] [DEBUG]: Running validation on step 53248 is done!
+[2026-07-31 05:17:12] [DEBUG]: Rolling checkpoint saved @ step 53248 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 05:17:38] [DEBUG]: Running validation on step 53504...
+[2026-07-31 05:18:21] [DEBUG]: Running validation on step 53504 is done!
+53504 0.15582139967441164 0.1555523220844419 nan
+[2026-07-31 05:18:21] [DEBUG]: New best ndcg@20=0.15582 @ step 53504 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 05:18:42] [DEBUG]: Start epoch 14
+[2026-07-31 05:18:48] [DEBUG]: Running validation on step 53760...
+[2026-07-31 05:19:31] [DEBUG]: Running validation on step 53760 is done!
+[2026-07-31 05:19:31] [DEBUG]: Rolling checkpoint saved @ step 53760 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 05:19:58] [DEBUG]: Running validation on step 54016...
+[2026-07-31 05:20:41] [DEBUG]: Running validation on step 54016 is done!
+[2026-07-31 05:21:07] [DEBUG]: Running validation on step 54272...
+[2026-07-31 05:21:50] [DEBUG]: Running validation on step 54272 is done!
+54272 0.1560958536699513 0.15582139967441164 nan
+[2026-07-31 05:21:50] [DEBUG]: New best ndcg@20=0.15610 @ step 54272 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 05:21:50] [DEBUG]: Rolling checkpoint saved @ step 54272 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 05:22:16] [DEBUG]: Running validation on step 54528...
+[2026-07-31 05:22:59] [DEBUG]: Running validation on step 54528 is done!
+54528 0.1616200314156267 0.1560958536699513 nan
+[2026-07-31 05:22:59] [DEBUG]: New best ndcg@20=0.16162 @ step 54528 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 05:23:25] [DEBUG]: Running validation on step 54784...
+[2026-07-31 05:24:08] [DEBUG]: Running validation on step 54784 is done!
+[2026-07-31 05:24:08] [DEBUG]: Rolling checkpoint saved @ step 54784 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 05:24:34] [DEBUG]: Running validation on step 55040...
+[2026-07-31 05:25:17] [DEBUG]: Running validation on step 55040 is done!
+[2026-07-31 05:25:43] [DEBUG]: Running validation on step 55296...
+[2026-07-31 05:26:26] [DEBUG]: Running validation on step 55296 is done!
+[2026-07-31 05:26:27] [DEBUG]: Rolling checkpoint saved @ step 55296 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 05:26:53] [DEBUG]: Running validation on step 55552...
+[2026-07-31 05:27:36] [DEBUG]: Running validation on step 55552 is done!
+[2026-07-31 05:28:02] [DEBUG]: Running validation on step 55808...
+[2026-07-31 05:28:45] [DEBUG]: Running validation on step 55808 is done!
+[2026-07-31 05:28:45] [DEBUG]: Rolling checkpoint saved @ step 55808 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 05:29:11] [DEBUG]: Running validation on step 56064...
+[2026-07-31 05:29:54] [DEBUG]: Running validation on step 56064 is done!
+[2026-07-31 05:30:20] [DEBUG]: Running validation on step 56320...
+[2026-07-31 05:31:03] [DEBUG]: Running validation on step 56320 is done!
+[2026-07-31 05:31:03] [DEBUG]: Rolling checkpoint saved @ step 56320 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 05:31:30] [DEBUG]: Running validation on step 56576...
+[2026-07-31 05:32:13] [DEBUG]: Running validation on step 56576 is done!
+[2026-07-31 05:32:39] [DEBUG]: Running validation on step 56832...
+[2026-07-31 05:33:22] [DEBUG]: Running validation on step 56832 is done!
+[2026-07-31 05:33:22] [DEBUG]: Rolling checkpoint saved @ step 56832 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 05:33:48] [DEBUG]: Running validation on step 57088...
+[2026-07-31 05:34:31] [DEBUG]: Running validation on step 57088 is done!
+[2026-07-31 05:34:57] [DEBUG]: Running validation on step 57344...
+[2026-07-31 05:35:40] [DEBUG]: Running validation on step 57344 is done!
+[2026-07-31 05:35:40] [DEBUG]: Rolling checkpoint saved @ step 57344 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 05:36:01] [DEBUG]: Start epoch 15
+[2026-07-31 05:36:07] [DEBUG]: Running validation on step 57600...
+[2026-07-31 05:36:50] [DEBUG]: Running validation on step 57600 is done!
+[2026-07-31 05:37:16] [DEBUG]: Running validation on step 57856...
+[2026-07-31 05:37:59] [DEBUG]: Running validation on step 57856 is done!
+[2026-07-31 05:37:59] [DEBUG]: Rolling checkpoint saved @ step 57856 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 05:38:25] [DEBUG]: Running validation on step 58112...
+[2026-07-31 05:39:08] [DEBUG]: Running validation on step 58112 is done!
+[2026-07-31 05:39:35] [DEBUG]: Running validation on step 58368...
+[2026-07-31 05:40:18] [DEBUG]: Running validation on step 58368 is done!
+[2026-07-31 05:40:18] [DEBUG]: Rolling checkpoint saved @ step 58368 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 05:40:44] [DEBUG]: Running validation on step 58624...
+[2026-07-31 05:41:27] [DEBUG]: Running validation on step 58624 is done!
+[2026-07-31 05:41:53] [DEBUG]: Running validation on step 58880...
+[2026-07-31 05:42:36] [DEBUG]: Running validation on step 58880 is done!
+[2026-07-31 05:42:36] [DEBUG]: Rolling checkpoint saved @ step 58880 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 05:43:03] [DEBUG]: Running validation on step 59136...
+[2026-07-31 05:43:46] [DEBUG]: Running validation on step 59136 is done!
+[2026-07-31 05:44:12] [DEBUG]: Running validation on step 59392...
+[2026-07-31 05:44:55] [DEBUG]: Running validation on step 59392 is done!
+[2026-07-31 05:44:55] [DEBUG]: Rolling checkpoint saved @ step 59392 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 05:45:21] [DEBUG]: Running validation on step 59648...
+[2026-07-31 05:46:04] [DEBUG]: Running validation on step 59648 is done!
+[2026-07-31 05:46:30] [DEBUG]: Running validation on step 59904...
+[2026-07-31 05:47:13] [DEBUG]: Running validation on step 59904 is done!
+[2026-07-31 05:47:13] [DEBUG]: Rolling checkpoint saved @ step 59904 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 05:47:39] [DEBUG]: Running validation on step 60160...
+[2026-07-31 05:48:22] [DEBUG]: Running validation on step 60160 is done!
+[2026-07-31 05:48:49] [DEBUG]: Running validation on step 60416...
+[2026-07-31 05:49:32] [DEBUG]: Running validation on step 60416 is done!
+[2026-07-31 05:49:32] [DEBUG]: Rolling checkpoint saved @ step 60416 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 05:49:58] [DEBUG]: Running validation on step 60672...
+[2026-07-31 05:50:41] [DEBUG]: Running validation on step 60672 is done!
+[2026-07-31 05:51:07] [DEBUG]: Running validation on step 60928...
+[2026-07-31 05:51:50] [DEBUG]: Running validation on step 60928 is done!
+[2026-07-31 05:51:50] [DEBUG]: Rolling checkpoint saved @ step 60928 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 05:52:17] [DEBUG]: Running validation on step 61184...
+[2026-07-31 05:53:00] [DEBUG]: Running validation on step 61184 is done!
+[2026-07-31 05:53:19] [DEBUG]: Start epoch 16
+[2026-07-31 05:53:26] [DEBUG]: Running validation on step 61440...
+[2026-07-31 05:54:10] [DEBUG]: Running validation on step 61440 is done!
+[2026-07-31 05:54:10] [DEBUG]: Rolling checkpoint saved @ step 61440 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 05:54:36] [DEBUG]: Running validation on step 61696...
+[2026-07-31 05:55:19] [DEBUG]: Running validation on step 61696 is done!
+[2026-07-31 05:55:45] [DEBUG]: Running validation on step 61952...
+[2026-07-31 05:56:28] [DEBUG]: Running validation on step 61952 is done!
+[2026-07-31 05:56:28] [DEBUG]: Rolling checkpoint saved @ step 61952 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 05:56:54] [DEBUG]: Running validation on step 62208...
+[2026-07-31 05:57:37] [DEBUG]: Running validation on step 62208 is done!
+[2026-07-31 05:58:03] [DEBUG]: Running validation on step 62464...
+[2026-07-31 05:58:46] [DEBUG]: Running validation on step 62464 is done!
+[2026-07-31 05:58:47] [DEBUG]: Rolling checkpoint saved @ step 62464 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 05:59:13] [DEBUG]: Running validation on step 62720...
+[2026-07-31 05:59:56] [DEBUG]: Running validation on step 62720 is done!
+[2026-07-31 06:00:22] [DEBUG]: Running validation on step 62976...
+[2026-07-31 06:01:05] [DEBUG]: Running validation on step 62976 is done!
+[2026-07-31 06:01:05] [DEBUG]: Rolling checkpoint saved @ step 62976 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 06:01:32] [DEBUG]: Running validation on step 63232...
+[2026-07-31 06:02:14] [DEBUG]: Running validation on step 63232 is done!
+[2026-07-31 06:02:41] [DEBUG]: Running validation on step 63488...
+[2026-07-31 06:03:24] [DEBUG]: Running validation on step 63488 is done!
+[2026-07-31 06:03:24] [DEBUG]: Rolling checkpoint saved @ step 63488 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 06:03:50] [DEBUG]: Running validation on step 63744...
+[2026-07-31 06:04:33] [DEBUG]: Running validation on step 63744 is done!
+[2026-07-31 06:04:59] [DEBUG]: Running validation on step 64000...
+[2026-07-31 06:05:42] [DEBUG]: Running validation on step 64000 is done!
+64000 0.16231966112179078 0.1616200314156267 nan
+[2026-07-31 06:05:42] [DEBUG]: New best ndcg@20=0.16232 @ step 64000 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 06:05:42] [DEBUG]: Rolling checkpoint saved @ step 64000 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 06:06:09] [DEBUG]: Running validation on step 64256...
+[2026-07-31 06:06:52] [DEBUG]: Running validation on step 64256 is done!
+[2026-07-31 06:07:18] [DEBUG]: Running validation on step 64512...
+[2026-07-31 06:08:01] [DEBUG]: Running validation on step 64512 is done!
+[2026-07-31 06:08:01] [DEBUG]: Rolling checkpoint saved @ step 64512 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 06:08:27] [DEBUG]: Running validation on step 64768...
+[2026-07-31 06:09:10] [DEBUG]: Running validation on step 64768 is done!
+[2026-07-31 06:09:36] [DEBUG]: Running validation on step 65024...
+[2026-07-31 06:10:19] [DEBUG]: Running validation on step 65024 is done!
+65024 0.16260268131382025 0.16231966112179078 nan
+[2026-07-31 06:10:19] [DEBUG]: New best ndcg@20=0.16260 @ step 65024 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 06:10:19] [DEBUG]: Rolling checkpoint saved @ step 65024 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 06:10:39] [DEBUG]: Start epoch 17
+[2026-07-31 06:10:46] [DEBUG]: Running validation on step 65280...
+[2026-07-31 06:11:29] [DEBUG]: Running validation on step 65280 is done!
+[2026-07-31 06:11:55] [DEBUG]: Running validation on step 65536...
+[2026-07-31 06:12:38] [DEBUG]: Running validation on step 65536 is done!
+[2026-07-31 06:12:38] [DEBUG]: Rolling checkpoint saved @ step 65536 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 06:13:04] [DEBUG]: Running validation on step 65792...
+[2026-07-31 06:13:47] [DEBUG]: Running validation on step 65792 is done!
+[2026-07-31 06:14:13] [DEBUG]: Running validation on step 66048...
+[2026-07-31 06:14:56] [DEBUG]: Running validation on step 66048 is done!
+66048 0.16395260615656707 0.16260268131382025 nan
+[2026-07-31 06:14:56] [DEBUG]: New best ndcg@20=0.16395 @ step 66048 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 06:14:57] [DEBUG]: Rolling checkpoint saved @ step 66048 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 06:15:23] [DEBUG]: Running validation on step 66304...
+[2026-07-31 06:16:06] [DEBUG]: Running validation on step 66304 is done!
+66304 0.1666684763666415 0.16395260615656707 nan
+[2026-07-31 06:16:06] [DEBUG]: New best ndcg@20=0.16667 @ step 66304 -> ../checkpoints/tiger_ml1m_best.pth
+[2026-07-31 06:16:32] [DEBUG]: Running validation on step 66560...
+[2026-07-31 06:17:15] [DEBUG]: Running validation on step 66560 is done!
+[2026-07-31 06:17:15] [DEBUG]: Rolling checkpoint saved @ step 66560 -> ../checkpoints/tiger_ml1m_latest.pth
+[2026-07-31 06:17:41] [DEBUG]: Running validation on step 66816...
