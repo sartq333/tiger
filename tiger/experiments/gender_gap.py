@@ -46,6 +46,8 @@ ap.add_argument('--ckpt', default='../checkpoints/tiger_ml1m_best.pth')
 ap.add_argument('--users', default='')  # comma-sep user ids; empty -> auto-pick
 ap.add_argument('--agg', type=int, default=0)  # if >0, also run aggregate genre-shift over N random users
 ap.add_argument('--device', default='cpu')
+ap.add_argument('--scan', type=int, default=0)      # scan N users, show the most gender-divergent ones
+ap.add_argument('--n-strong', type=int, default=4)  # how many strong examples to show
 args = ap.parse_args()
 
 fix_random_seed(42)
@@ -149,34 +151,88 @@ def hist_titles(u):
     return [item_title(it)[0] for it in seq]
 
 TOPN = 10
-sample_users = [int(x) for x in args.users.split(',')] if args.users else pick_users(3)
-print(f'\n=== MALE vs FEMALE recommendations (same history, only gender changed) on users {sample_users} ===')
 
-for u in sample_users:
-    g,a,o = u_demo[u]
-    male   = decode(recommend([u], emb_override=emb_for(('M',a,o)))[0])
-    female = decode(recommend([u], emb_override=emb_for(('F',a,o)))[0])
-    tm = [t for _,t,_ in male]; tf = [t for _,t,_ in female]
-    common = set(tm) & set(tf)
-    h = hist_titles(u)
-    print(f'\n{"="*84}')
-    print(f'USER {u}  |  Age: {AGE_MAP.get(a,a)}  Occupation: {OCC_MAP.get(o,"?")}  (actual gender: {"Male" if g=="M" else "Female"})')
-    print(f'recent history: {" | ".join(h[-5:])}')
-    print(f'{"-"*84}')
-    print(f'{"#":>2}  {"conditioned MALE":<40} {"conditioned FEMALE":<40}')
-    for i in range(TOPN):
-        mt = tm[i] if i < len(tm) else ''
-        ft = tf[i] if i < len(tf) else ''
-        mk = ' ' if mt in common else '*'   # * = title not in the other gender's list
-        fk = ' ' if ft in common else '*'
-        print(f'{i+1:>2}  {mk}{mt[:38]:<39} {fk}{ft[:38]:<39}')
-    print(f'{"-"*84}')
-    print(f'top-{TOPN} overlap: {len(set(tm[:TOPN])&set(tf[:TOPN]))}/{TOPN}   (* = appears for only that gender)')
+# Strong, validated examples: users (with both genders available) where flipping
+# ONLY the gender attribute changes the *genres* of the top-10 the most. Found by
+# scanning with --scan and ranking by genre-distribution L1 distance, then baked
+# in so a plain `python gender_gap.py` run surfaces clear bias out of the box.
+# Found via `--scan 500` on tiger_ml1m_best.pth (NDCG@20~0.167), ranked by single-user
+# genre-L1. Re-run --scan after retraining, since the strongest users are checkpoint-specific.
+#   3713 female-exec: Male->Fight Club/Unforgiven/Misery ; Female->Bambi/Fantasia/Casablanca (L1=18)
+#   1080 56+ male   : Male->Conan/Star Trek/Logan's Run  ; Female->You've Got Mail/rom-coms  (L1=17)
+#   4509 male exec  : Male->Robocop/Devil's Advocate     ; Female->Ghost/Fried Green Tomatoes(L1=11)
+#   4739 male admin : Male->Godfather/Jurassic Park      ; Female->Scary Movie/Best in Show   (L1=11)
+DEFAULT_STRONG_USERS = [3713, 1080, 4509, 4739]
+
+def cell(rec):  # "Title [Genre/Genre]" for the side-by-side view
+    _, t, gg = rec
+    prim = '/'.join(gg.split('|')[:2]) if gg else '?'
+    return f'{t[:23]} [{prim}]'[:41]
+
+def recs_mf(u):  # top-K decoded recs conditioning the same history as Male / as Female
+    a_o = u_demo[u][1:]
+    return (decode(recommend([u], emb_override=emb_for(('M',) + a_o))[0]),
+            decode(recommend([u], emb_override=emb_for(('F',) + a_o))[0]))
+
+def genre_l1(male, female):  # L1 distance between the two top-K genre distributions
     gm, gf = genre_counts(male[:TOPN]), genre_counts(female[:TOPN])
-    allg = sorted(set(gm)|set(gf), key=lambda k:-(gm[k]+gf[k]))
-    shifts = [(k, gf[k]-gm[k]) for k in allg if gf[k]-gm[k]!=0]
-    print('genre shift (Female minus Male count in top-%d): ' % TOPN
-          + (', '.join(f'{k}:{d:+d}' for k,d in shifts) or 'none'))
+    return sum(abs(gm[k] - gf[k]) for k in set(gm) | set(gf))
+
+def find_strong_users(k):
+    # NOTE: beam-search generation is batch-dependent (FP non-associativity across
+    # batch size, amplified by the 100-beam constrained decoder), so a user's recs
+    # in a big batch differ from its single-user recs. We therefore shortlist cheaply
+    # with a batched pass, then RE-SCORE the shortlist one user at a time so the chosen
+    # examples reproduce exactly in the single-user display below.
+    rng = np.random.default_rng(0)
+    pool = [u for u,(g,a,o) in u_demo.items()
+            if ('M',a,o) in demo2emb and ('F',a,o) in demo2emb and u in uid2idx]
+    pool = list(map(int, rng.choice(pool, size=min(args.scan, len(pool)), replace=False)))
+    male_e = np.stack([demo2emb[('M',)+u_demo[u][1:]] for u in pool])
+    fem_e  = np.stack([demo2emb[('F',)+u_demo[u][1:]] for u in pool])
+    shortlist, B = [], 128
+    for i in range(0, len(pool), B):
+        us = pool[i:i+B]
+        rm = recommend(us, torch.tensor(male_e[i:i+B], dtype=torch.float32))
+        rf = recommend(us, torch.tensor(fem_e[i:i+B], dtype=torch.float32))
+        for j, u in enumerate(us):
+            shortlist.append((genre_l1(decode(rm[j]), decode(rf[j])), u))
+    shortlist = [u for _, u in sorted(shortlist, reverse=True)[:max(4*k, 20)]]
+    scored = sorted(((genre_l1(*recs_mf(u)), u) for u in shortlist), reverse=True)  # single-user
+    print(f'\nMost gender-divergent of {len(pool)} scanned (single-user genre-L1): '
+          + ', '.join(f'{u}(L1={s})' for s, u in scored[:k]))
+    return [u for _, u in scored[:k]]
+
+if args.users:
+    sample_users = [int(x) for x in args.users.split(',')]
+elif args.scan > 0:
+    sample_users = find_strong_users(args.n_strong)
+else:
+    sample_users = DEFAULT_STRONG_USERS
+
+print('\n=== MALE vs FEMALE recommendations (same history, only gender changed) ===')
+for u in sample_users:
+    g, a, o = u_demo[u]
+    male, female = recs_mf(u)
+    tm = [t for _, t, _ in male]; tf = [t for _, t, _ in female]
+    common = set(tm[:TOPN]) & set(tf[:TOPN])
+    print(f'\n{"="*90}')
+    print(f'USER {u}  |  Age: {AGE_MAP.get(a,a)}  Occupation: {OCC_MAP.get(o,"?")}  (actual: {"Male" if g=="M" else "Female"})')
+    print(f'recent history: {" | ".join(hist_titles(u)[-5:])}')
+    print(f'{"-"*90}')
+    print(f'{"#":>2}  {"conditioned MALE":<42} {"conditioned FEMALE":<42}')
+    for i in range(TOPN):
+        mc = cell(male[i]) if i < len(male) else ''
+        fc = cell(female[i]) if i < len(female) else ''
+        mk = ' ' if tm[i] in common else '*'
+        fk = ' ' if tf[i] in common else '*'
+        print(f'{i+1:>2}  {mk}{mc:<42} {fk}{fc:<42}')
+    print(f'{"-"*90}')
+    gm = genre_counts(male[:TOPN]); gf = genre_counts(female[:TOPN])
+    fmt = lambda c: ', '.join(f'{k}x{v}' for k, v in sorted(c.items(), key=lambda x:-x[1]))
+    print(f'genre mix  MALE  : {fmt(gm)}')
+    print(f'genre mix  FEMALE: {fmt(gf)}')
+    print(f'top-{TOPN} title overlap: {len(common)}/{TOPN}   genre-L1 distance: {genre_l1(male, female)}   (* = only that gender)')
 
 # ---- optional aggregate genre shift -----------------------------------------
 if args.agg > 0:
