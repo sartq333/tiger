@@ -132,7 +132,7 @@ def main():
         step_cnt=config.get('train_steps_num'),
         best_metric='ndcg@20',
         epochs_threshold=config.get('early_stopping_threshold', 40),
-        valid_step=256,
+        valid_step=config.get('valid_step', 256),
         eval_step=10_000_000,  # test-eval during training disabled; final eval runs after load(best)
         checkpoint_step=config.get('checkpoint_step', 512),  # rolling resumable snapshot cadence
         resume=config.get('resume', True)

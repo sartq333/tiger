@@ -2,3 +2,14 @@ __pycache__/
 *.pyc
 /checkpoints/
 tensorboard_logs/
+
+# Local agent context
+CLAUDE.md
+
+# Large data artifacts (regenerate via notebooks or download from Zenodo)
+data/**/content_embeddings.pkl
+data/**/user_embeddings.pkl
+data/Beauty/Beauty_5.json
+data/Beauty/metadata.json
+data/Beauty/meta_Beauty.json.gz
+data/Beauty/inter_new.json
